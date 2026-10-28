@@ -77,11 +77,10 @@ class LinearRegression:
         return (np.dot(X, self.weights) + self.bias).flatten()
 
 
-data = pd.read_csv('day.csv')
-print(data.info())
-drop_cols = ['instant', 'dteday', 'casual', 'registered', 'cnt']
+data = pd.read_csv("day.csv")
+drop_cols = ["instant", "dteday", "casual", "registered", "cnt"]
 X = data.drop(columns=drop_cols)
-y = data['cnt']
+y = data["cnt"]
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 scaler = Scaler()
 X_train_scaled = scaler.fit_transform(X_train)
@@ -92,10 +91,10 @@ linear_regression = LinearRegression(learning_rate=0.05, iterations=100)
 linear_regression.fit(X_train_scaled, y_train)
 
 plt.figure(figsize=(8, 5))
-plt.plot(linear_regression.loss_history, label='MSE')
-plt.title('Loss per Epoch')
-plt.xlabel('Epoch')
-plt.ylabel('MSE')
+plt.plot(linear_regression.loss_history, label="MSE")
+plt.title("Loss per Epoch")
+plt.xlabel("Epoch")
+plt.ylabel("MSE")
 plt.grid(True)
 plt.legend()
 plt.show()

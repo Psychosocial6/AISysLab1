@@ -98,11 +98,11 @@ class LogisticRegression:
         probabilities = self.predict_prob(X)
         return (probabilities >= threshold).astype(int)
 
-data = pd.read_csv('train.csv')
-drop_cols = ['PassengerId', 'Name', 'Cabin']
+data = pd.read_csv("train.csv")
+drop_cols = ["PassengerId", "Name", "Cabin"]
 df_clean = data.drop(columns=drop_cols).copy()
-num_cols = ['Age', 'RoomService', 'FoodCourt', 'ShoppingMall', 'Spa', 'VRDeck']
-cat_cols = ['HomePlanet', 'CryoSleep', 'Destination', 'VIP']
+num_cols = ["Age", "RoomService", "FoodCourt", "ShoppingMall", "Spa", "VRDeck"]
+cat_cols = ["HomePlanet", "CryoSleep", "Destination", "VIP"]
 
 for col in num_cols:
     df_clean[col] = df_clean[col].fillna(df_clean[col].median())
@@ -110,8 +110,8 @@ for col in num_cols:
 for col in cat_cols:
     df_clean[col] = df_clean[col].fillna(df_clean[col].mode()[0])
 
-y = df_clean['Transported'].astype(int)
-X = df_clean.drop(columns=['Transported'])
+y = df_clean["Transported"].astype(int)
+X = df_clean.drop(columns=["Transported"])
 X = pd.get_dummies(X, columns=cat_cols, drop_first=True, dtype=float)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
@@ -123,10 +123,10 @@ X_test_scaled = scaler.transform(X_test)
 log_reg = LogisticRegression(learning_rate=0.1, iterations=1000)
 log_reg.fit(X_train_scaled, y_train)
 plt.figure(figsize=(8, 5))
-plt.plot(log_reg.loss_history, color='orange', label='Train LogLoss')
-plt.title('Logistic Regression')
-plt.xlabel('Epoch')
-plt.ylabel('LogLoss')
+plt.plot(log_reg.loss_history, color="orange", label="Train LogLoss")
+plt.title("Logistic Regression")
+plt.xlabel("Epoch")
+plt.ylabel("LogLoss")
 plt.grid(True)
 plt.legend()
 plt.show()
